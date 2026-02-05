@@ -1,0 +1,46 @@
+### model
+model_name_or_path: /home/ljl/Disk/ljl/GLM-4-9B-0414
+template: glm4
+trust_remote_code: True
+
+### method
+stage: sft
+do_train: true
+finetuning_type: lora
+lora_target: q_proj,k_proj,v_proj,o_proj
+lora_rank: 16
+lora_alpha: 32
+lora_dropout: 0.1
+
+### dataset
+dataset_dir: data
+dataset: train_sft
+cutoff_len: 2048
+max_samples: 10000000
+overwrite_cache: true
+
+### output
+output_dir: saves/train_sft
+logging_steps: 10
+save_steps: 50
+plot_loss: true
+overwrite_output_dir: true
+
+### train
+preprocessing_num_workers: 16
+per_device_train_batch_size: 4
+gradient_accumulation_steps: 4
+learning_rate: 5.e-5
+num_train_epochs: 1.0
+lr_scheduler_type: cosine
+optim: adamw_torch
+warmup_ratio: 0.1
+bf16: true
+ddp_timeout: 180000000
+flash_attn: auto
+
+### eval
+val_size: 0.1
+per_device_eval_batch_size: 2
+eval_strategy: steps
+eval_steps: 5000
