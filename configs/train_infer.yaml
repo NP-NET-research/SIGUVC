@@ -1,0 +1,22 @@
+### model
+model_name_or_path: /home/ljl/Data/LLM/GLM-4-32B-0414
+adapter_name_or_path : ~
+template: glm4
+trust_remote_code: True
+
+stage : sft
+preprocessing_num_workers: 16
+flash_attn: auto
+dataset_dir: data
+eval_dataset: test_infer 
+cutoff_len : 2048
+max_samples : 10000000
+per_device_eval_batch_size : 32
+predict_with_generate : True
+max_new_tokens : 512
+top_p : 0.95
+temperature : 1.0
+do_sample : True
+output_dir : saves/infer
+ddp_timeout : 180000000
+do_predict : True
